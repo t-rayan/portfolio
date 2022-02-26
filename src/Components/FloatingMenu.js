@@ -1,26 +1,51 @@
-import { Box, Center, Grid, HStack, Icon } from "@chakra-ui/react";
+import { Box, Center, Icon } from "@chakra-ui/react";
 import React from "react";
-import { FaHome, FaUser, FaCode, FaMailBulk } from "react-icons/fa";
+import { FiHome, FiUser, FiGrid, FiMail } from "react-icons/fi";
+import { NavLink } from "react-router-dom";
 
-const FloatingMenu = () => {
+const FloatingMenu = ({ theme, isLightTheme }) => {
+  const activeLinkStyle = ({ isActive }) => {
+    return {
+      backgroundColor: isActive ? "#5995C7" : "transparent",
+      color: isActive ? "#fff" : "#ccc",
+      width: "40px",
+      height: "40px",
+      borderRadius: "50%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    };
+  };
   return (
-    <Box pos="fixed" bottom={1} w="100%" padding={5}>
+    <Box pos="fixed" bottom={5} w="100%" padding={1}>
       <Box
-        w={["100%", "100%", "40%",'40%','20%']}
-        display={"flex"}
-        gap={10}
-        justifyContent="space-around"
+        w={{ base: "90%", sm: "70%", md: "40%", lg: "40%", xl: "20%" }}
+        display={"grid"}
+        alignSelf="center"
+        justifySelf="center"
+        gridTemplateColumns="auto auto auto auto"
+        justifyContent="space-between"
         alignItems="center"
-        bg="white"
+        bg={isLightTheme ? "whiteAlpha.900" : "blackAlpha.600"}
         mx={"auto"}
-        p={7}
-        borderRadius="md"
-        boxShadow="lg"
+        p={5}
+        borderRadius="xl"
+        boxShadow="md"
       >
-        <Icon as={FaHome} w={6} h={6} />
-        <Icon as={FaUser} w={6} h={6} />
-        <Icon as={FaCode} w={6} h={6} />
-        <Icon as={FaMailBulk} w={6} h={6} />
+        <NavLink style={activeLinkStyle} to="/">
+          <Center>
+            <Icon as={FiHome} w={6} h={6} />
+          </Center>
+        </NavLink>
+        <NavLink style={activeLinkStyle} to="/about">
+          <Icon as={FiUser} w={6} h={6} />
+        </NavLink>
+        <NavLink style={activeLinkStyle} to="/projects">
+          <Icon as={FiGrid} w={6} h={6} />
+        </NavLink>
+        <NavLink style={activeLinkStyle} to="/contact">
+          <Icon as={FiMail} w={6} h={6} />
+        </NavLink>
       </Box>
     </Box>
   );
